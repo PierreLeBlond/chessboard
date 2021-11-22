@@ -6,8 +6,6 @@
   "scripts": {
     "build": "NODE_ENV=production webpack --config ./webpack/config.js",
     "start": "NODE_ENV=development webpack serve --config ./webpack/config.js",
-    "clean": "rm -rf ./dist/* & ssh ssh://ncyujthp@node104-eu.n0c.com:5022 'rm -rf ./app/chess/*'",
-    "deploy": "npm run clean && npm run build && scp -r -P 5022 ./dist/* ncyujthp@node104-eu.n0c.com:./app/chess/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "PierreLeBlond",
