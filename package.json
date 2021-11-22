@@ -13,8 +13,8 @@
   "author": "PierreLeBlond",
   "license": "ISC",
   "devDependencies": {
+    "@s0rt/3d-viewer": "^1.0.0",
     "@types/three": "^0.134.0",
-    "3d-viewer": "https://app.pierrelespingal.com/3d-viewer/3d-viewer-1.0.0.tgz",
     "copy-webpack-plugin": "^10.0.0",
     "file-loader": "^6.2.0",
     "three": "^0.134.0",

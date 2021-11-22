@@ -1,4 +1,4 @@
-import { Reflector, Viewer } from "3d-viewer";
+import { Reflector, Viewer } from "@s0rt/3d-viewer";
 import { AnimationMixer } from "three/src/animation/AnimationMixer";
 import { Mesh } from "three/src/objects/Mesh";
 import chessboard from "./assets/chess.gltf";
