@@ -1,0 +1,27 @@
+{
+  "name": "chess",
+  "version": "1.0.0",
+  "description": "Chess board demo",
+  "main": "main.js",
+  "scripts": {
+    "build": "NODE_ENV=production webpack --config ./webpack/config.js",
+    "start": "NODE_ENV=development webpack serve --config ./webpack/config.js",
+    "clean": "rm -rf ./dist/* & ssh ssh://ncyujthp@node104-eu.n0c.com:5022 'rm -rf ./app/chess/*'",
+    "deploy": "npm run clean && npm run build && scp -r -P 5022 ./dist/* ncyujthp@node104-eu.n0c.com:./app/chess/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "PierreLeBlond",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/three": "^0.134.0",
+    "3d-viewer": "https://app.pierrelespingal.com/3d-viewer/3d-viewer-1.0.0.tgz",
+    "copy-webpack-plugin": "^10.0.0",
+    "file-loader": "^6.2.0",
+    "three": "^0.134.0",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.2",
+    "webpack": "^5.64.2",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.5.0"
+  }
+}
