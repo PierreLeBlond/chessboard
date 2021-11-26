@@ -1,15 +1,16 @@
-import { Reflector, Viewer } from "@s0rt/3d-viewer";
+import { Reflector, PublicViewer } from "@s0rt/3d-viewer";
 import { AnimationMixer } from "three/src/animation/AnimationMixer";
 import { Mesh } from "three/src/objects/Mesh";
 import chessboard from "./assets/chess.gltf";
 
 export default class App {
 
-  private viewer: Viewer;
+  private viewer: PublicViewer;
 
   public async start(elementId: string, asset: string) {
-    this.viewer = new Viewer();
+    this.viewer = new PublicViewer();
     await this.viewer.init(elementId);
+    await this.viewer.loadDefaultEnvironment();
     await this.viewer.loadAsset(chessboard);
     this.setCameraPosition();
     this.viewer.launch();
