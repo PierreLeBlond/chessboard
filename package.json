@@ -11,7 +11,7 @@
   "author": "PierreLeBlond",
   "license": "ISC",
   "devDependencies": {
-    "@s0rt/3d-viewer": "^2.0.1",
+    "@s0rt/3d-viewer": "^2.0.2",
     "@types/three": "^0.134.0",
     "copy-webpack-plugin": "^10.0.0",
     "file-loader": "^6.2.0",
