@@ -1,5 +1,5 @@
 const path = require('path');
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 
 const config = require(`./${process.env.NODE_ENV}.config`);
 
@@ -10,26 +10,17 @@ module.exports = {
 
   module: {
     rules: [
-      {
-        test: /\.(ts)$/,
-        use: 'ts-loader',
-        exclude: /node_modules/
-      },
-      {
-        test: /\.(gltf)$/i,
-        type: 'asset/resource'
-      }
+      {test: /\.(ts)$/, use: 'ts-loader', exclude: /node_modules/},
+      {test: /\.(gltf|hdr)$/i, type: 'asset/resource'}
     ],
   },
 
-  resolve: {
-    extensions: ['*', '.ts', '.js']
-  },
+  resolve: {extensions: ['*', '.ts', '.js']},
 
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: "public", to: "./" },
+        {from: 'public', to: './'},
       ],
     }),
   ],
@@ -39,7 +30,7 @@ module.exports = {
     publicPath: config.publicPath,
     filename: 'main.js',
     assetModuleFilename: `assets/${config.mediaFilename}`,
-    chunkFilename : `chunks/${config.chunkFilename}`,
+    chunkFilename: `chunks/${config.chunkFilename}`,
     clean: true
   },
 
