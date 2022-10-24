@@ -9,11 +9,11 @@ jobs:
       - run: npm install
       - run: npm run build
       - uses: garygrossgarten/github-action-scp@release
-          with:
-            local: dist
-            remote: app/chess
-            host: ${{ secrets.HOST }}
-            port: ${{ secrets.PORT }}
-            username: ${{ secrets.USERNAME }}
-            password: ${{ secrets.PASSWORD }}
+        with:
+          local: dist
+          remote: app/chess
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
     
