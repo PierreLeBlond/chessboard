@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style>
-            body {
-                overflow: hidden;
-                margin: 0px;
-            }
 
-            main {
-              height: 100vh;
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      overflow: hidden;
+      margin: 0px;
+    }
 
-            }
-        </style>
-    </head>
+    main {
+      height: 100vh;
 
-    <body>
-      <main id="3d-viewer">
-      </main>
-        <script async defer type="module" src="./main.js" app-callback="start"></script>
-        <script defer>
-          function start(app) {
-            app.start("3d-viewer");
-          }
-        </script>
-    </body>
+    }
+  </style>
+</head>
+
+<body>
+  <main id="3d-viewer">
+  </main>
+  <script async defer type="module" src="./main.js" app-callback="start"></script>
+  <script defer>
+    function start(app) {
+      app.launch("3d-viewer", "./assets/", "room_rgbd");
+    }
+  </script>
+</body>
+
 </html>
