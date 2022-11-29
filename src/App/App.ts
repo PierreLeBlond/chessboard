@@ -1,36 +1,43 @@
-import {PublicViewer, Reflector, THREE} from '@s0rt/3d-viewer';
-import {Texture} from 'three';
-import {AnimationMixer} from 'three/src/animation/AnimationMixer';
-import {Mesh} from 'three/src/objects/Mesh';
+import { PublicViewer, Reflector, THREE } from '@s0rt/3d-viewer';
 
 import chessboard from './assets/chess.gltf';
+import configureControls from './configureControls';
 
 export default class App extends THREE.EventDispatcher {
-  private viewer: PublicViewer;
+  public viewer: PublicViewer;
 
-  public async launch(elementId: string, iblPath: string, iblName: string) {
-    this.viewer = new PublicViewer();
-    this.viewer.addEventListener('taskCompleted', ({progression}) => {
-      this.dispatchEvent({type: 'taskCompleted', progression});
-    });
+  constructor(viewer: PublicViewer) {
+    super();
+    this.viewer = viewer;
+  }
 
-    this.viewer.addTasks({
-      parallelTasks: [
-        {
-          task: async () => {
-            await this.viewer.loadIbl(iblPath, iblName);
-            this.viewer.setIblInViewSpace();
-          }
-        },
-        {task: async () => await this.viewer.loadAsset(chessboard)}
-      ]
-    });
-    await this.viewer.launch(elementId);
-    this.viewer.addSkybox();
+  public async start() {
+    let scene = this.viewer.viewer.getScene("chess");
+
+    if (!scene) {
+      scene = this.viewer.viewer.createScene("chess");
+      this.viewer.viewer.setScene(scene);
+
+      this.viewer.addTasks({
+        parallelTasks: [
+          { task: async () => await this.viewer.loadAsset(chessboard) }
+        ]
+      });
+      await this.viewer.launchTasks();
+      this.setBoardReflections();
+      this.viewer.playAllAnimations();
+      this.setPawnAnimationOffets();
+    }
+
+    this.viewer.viewer.setScene(scene);
+
+    configureControls(this.viewer.viewer);
     this.setCameraPosition();
-    this.viewer.playAllAnimations();
-    this.setPawnAnimationOffets();
-    this.setBoardReflections();
+    (this.viewer.viewer.scene.getObjectByName('chess-reflector') as Reflector).start(this.viewer.viewer);
+  }
+
+  public stop() {
+    (this.viewer.viewer.scene.getObjectByName('chess-reflector') as Reflector).stop(this.viewer.viewer);
   }
 
   private setCameraPosition() {
@@ -41,21 +48,22 @@ export default class App extends THREE.EventDispatcher {
 
   private setPawnAnimationOffets() {
     this.viewer.getAllAnimations()
-        .filter((animationMixer: AnimationMixer) => {
-          const mesh = animationMixer.getRoot() as Mesh;
-          return mesh.name.includes('Pawn') && mesh.type == 'SkinnedMesh';
-        })
-        .forEach((animationMixer: AnimationMixer, index: number) => {
-          animationMixer.setTime(index / 16);
-        });
+      .filter((animationMixer: THREE.AnimationMixer) => {
+        const mesh = animationMixer.getRoot() as THREE.Mesh;
+        return mesh.name.includes('Pawn') && mesh.type == 'SkinnedMesh';
+      })
+      .forEach((animationMixer: THREE.AnimationMixer, index: number) => {
+        animationMixer.setTime(index / 16);
+      });
   }
 
   private setBoardReflections() {
     const board =
-        this.viewer.viewer.scene.getObjectByName('Chessboard') as Mesh;
+      this.viewer.viewer.scene.getObjectByName('Chessboard') as THREE.Mesh;
 
     const reflector = new Reflector(
-        this.viewer.viewer, board, {textureWidth: 1024, textureHeight: 1024});
+      this.viewer.viewer, board, { textureWidth: 1024, textureHeight: 1024 });
+    reflector.name = "chess-reflector";
     reflector.rotateX(-Math.PI / 2);
     this.viewer.viewer.scene.add(reflector);
   }

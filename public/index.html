@@ -22,11 +22,22 @@
 </head>
 
 <body>
-  <main id="3d-viewer">
+  <main id="chess-viewer">
   </main>
   <script defer>
-    function start(app) {
-      app.launch("3d-viewer", "./assets/", "room_rgbd");
+    async function start(app) {
+      app.viewer.addTasks({
+        parallelTasks: [
+          {
+            task: async () => {
+              await app.viewer.loadIbl('./assets/room_rgbd_irradiance.dds', './assets/room_rgbd_radiance.dds');
+              app.viewer.setIblInViewSpace();
+            }
+          }
+        ]
+      });
+      await app.viewer.launch();
+      await app.start();
     }
   </script>
   <script defer type="module" src="./main.js" app-callback="start"></script>

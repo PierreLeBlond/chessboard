@@ -1,17 +1,21 @@
-name: Deploy to planethoster
-on: push
+name: Deploy to development
+on:
+  push:
+    branches:
+      - main
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: npm install
       - run: npm run build
       - uses: garygrossgarten/github-action-scp@release
         with:
           local: dist
-          remote: app/chess
+          remote: app/chess/dev
+          rmRemote: true
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
