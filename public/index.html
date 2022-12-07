@@ -15,8 +15,7 @@
     }
 
     main {
-      height: 100vh;
-
+      height: 80vh;
     }
   </style>
 </head>
@@ -24,20 +23,30 @@
 <body>
   <main id="chess-viewer">
   </main>
+  <button onclick="launch()">Launch</button>
+  <button onclick="dispose()">Dispose</button>
   <script defer>
+    let globalApp;
     async function start(app) {
-      app.viewer.addTasks({
+      globalApp = app;
+    }
+    async function launch() {
+      globalApp.viewer.addTasks({
         parallelTasks: [
           {
             task: async () => {
-              await app.viewer.loadIbl('./assets/room_rgbd_irradiance.dds', './assets/room_rgbd_radiance.dds');
-              app.viewer.setIblInViewSpace();
+              await globalApp.viewer.loadIbl('./assets/room_rgbd_irradiance.dds', './assets/room_rgbd_radiance.dds');
+              globalApp.viewer.setIblInViewSpace();
             }
           }
         ]
       });
-      await app.viewer.launch();
-      await app.start();
+      await globalApp.viewer.launch();
+      await globalApp.start();
+    }
+    function dispose() {
+      globalApp.dispose();
+      globalApp = null;
     }
   </script>
   <script defer type="module" src="./main.js" app-callback="start"></script>
