@@ -35,7 +35,9 @@ const library = {
   externalsType: 'var',
   externals: {
     '@s0rt/3d-viewer': 'VIEWER'
-  }
+  },
+  devtool: config.devtool,
+  devServer: config.devServer
 };
 
 const iife = {
@@ -55,8 +57,7 @@ const iife = {
       ],
     }),
   ],
-  devtool: config.devtool,
-  devServer: config.devServer,
+  devtool: config.devtool
 }
 
 module.exports = [library, iife];

@@ -1,13 +1,13 @@
 module.exports = {
-  mode : "development",
+  mode: "development",
 
-  chunkFilename : "[name].[chunkhash].js",
-  mediaFilename : "[name].[hash:20].[ext]",
+  chunkFilename: "[name].[chunkhash].js",
+  mediaFilename: "[name].[hash:20].[ext]",
 
   // A full SourceMap is emitted as a separate file.
   // It adds a reference comment to the bundle so development tools know where to find it.
   // You should configure your server to disallow access to the Source Map file for normal users!
-  devtool : "source-map",
+  devtool: "source-map",
   devServer: {
     headers: {
       "Access-Control-Allow-Origin": "*",
@@ -15,9 +15,9 @@ module.exports = {
       "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
     },
     // Set port to make public path work
-    port : "8081",
+    port: "8081",
     // Externally reachable
-    host : "0.0.0.0"
+    host: "0.0.0.0"
   },
 
   publicPath: 'http://localhost:8081/'
