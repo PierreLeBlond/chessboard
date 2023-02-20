@@ -44,9 +44,16 @@ export default class App extends THREE.EventDispatcher {
   }
 
   private setCameraPosition() {
-    this.viewer.viewer.camera.position.x = -9.1;
-    this.viewer.viewer.camera.position.y = 5.7;
-    this.viewer.viewer.camera.position.z = -8.1;
+    const { camera, controls } = this.viewer.viewer;
+
+    camera.position.set(-0.637, 0.399, -0.567);
+
+    camera.fov = 50;
+    camera.updateProjectionMatrix();
+
+    controls.minDistance = 0.01;
+    controls.maxDistance = 1;
+    controls.update();
   }
 
   private setPawnAnimationOffets() {

@@ -25,6 +25,8 @@
   </main>
   <button onclick="launch()">Launch</button>
   <button onclick="dispose()">Dispose</button>
+  <button onclick="disolve()">Disolve</button>
+  <button onclick="resolve()">Resolve</button>
   <script defer>
     let globalApp;
     async function start(app) {
@@ -43,10 +45,18 @@
       });
       await globalApp.viewer.launch();
       await globalApp.start();
+      const object = globalApp.viewer.viewer.scene.getObjectByName('main');
+      object.visible = false;
     }
     function dispose() {
       globalApp.dispose();
       globalApp = null;
+    }
+    function disolve() {
+      globalApp.viewer.disolveObjectByName('main', { delay: 0.1, duration: 0.5 }).then(() => console.log('pong'));
+    }
+    function resolve() {
+      globalApp.viewer.resolveObjectByName('main', { delay: 0.3, duration: .5 }).then(() => console.log('pong'));
     }
   </script>
   <script defer type="module" src="./main.js" app-callback="start"></script>
