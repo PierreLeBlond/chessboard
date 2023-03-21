@@ -48,6 +48,7 @@ export default class App extends THREE.EventDispatcher {
 
     camera.position.set(-0.637, 0.399, -0.567);
 
+    this.viewer.viewer.fov = 50;
     camera.fov = 50;
     camera.updateProjectionMatrix();
 
