@@ -2,10 +2,13 @@
   "name": "chess",
   "version": "2.2.1",
   "description": "Chess board demo",
-  "main": "main.js",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "type": "module",
   "scripts": {
-    "build": "NODE_ENV=production webpack --config ./webpack/config.js",
-    "dev": "NODE_ENV=development webpack serve --config ./webpack/config.js",
+    "build": "NODE_ENV=production webpack --config ./webpack/config.cjs",
+    "dev": "NODE_ENV=development webpack serve --config ./webpack/config.cjs",
+    "check": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "PierreLeBlond",

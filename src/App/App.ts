@@ -6,7 +6,7 @@ import configureControls from './configureControls';
 export default class App extends THREE.EventDispatcher {
   public viewer: PublicViewer;
 
-  private scene: Scene;
+  private scene: Scene | null = null;
 
   constructor(viewer: PublicViewer) {
     super();
@@ -23,7 +23,7 @@ export default class App extends THREE.EventDispatcher {
 
       this.viewer.addTasks({
         parallelTasks: [
-          { task: async () => await this.scene.loadAsset(chessboard) }
+          { task: async () => await this.scene?.loadAsset(chessboard) }
         ]
       });
       await this.viewer.launchTasks();
@@ -58,7 +58,7 @@ export default class App extends THREE.EventDispatcher {
   }
 
   private setPawnAnimationOffets() {
-    this.scene.getAllAnimations()
+    this.scene?.getAllAnimations()
       .filter((animationMixer: THREE.AnimationMixer) => {
         const mesh = animationMixer.getRoot() as THREE.Mesh;
         return mesh.name.includes('Pawn') && mesh.type == 'SkinnedMesh';
@@ -69,6 +69,11 @@ export default class App extends THREE.EventDispatcher {
   }
 
   private setBoardReflections() {
+
+    if (!this.scene) {
+      throw new Error('Scene does not exists');
+    }
+
     const board =
       this.viewer.viewer.scene.getObjectByName('Chessboard') as THREE.Mesh;
 
