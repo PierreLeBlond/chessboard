@@ -1,65 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon-16x16.png"
+    />
+    <link rel="manifest" href="./site.webmanifest" />
+    <style>
+      body {
+        overflow: hidden;
+        margin: 0px;
+      }
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
-  <link rel="manifest" href="./site.webmanifest">
-  <style>
-    body {
-      overflow: hidden;
-      margin: 0px;
-    }
+      main {
+        height: 80vh;
+      }
+    </style>
+  </head>
 
-    main {
-      height: 80vh;
-    }
-  </style>
-</head>
-
-<body>
-  <main id="chess-viewer">
-  </main>
-  <button onclick="launch()">Launch</button>
-  <button onclick="dispose()">Dispose</button>
-  <button onclick="disolve()">Disolve</button>
-  <button onclick="resolve()">Resolve</button>
-  <script defer>
-    let globalApp;
-    async function start(app) {
-      globalApp = app;
-    }
-    async function launch() {
-      globalApp.viewer.addTasks({
-        parallelTasks: [
-          {
-            task: async () => {
-              await globalApp.viewer.loadIbl('./assets/room_rgbd_irradiance.dds', './assets/room_rgbd_radiance.dds');
-              globalApp.viewer.setIblInViewSpace();
-            }
-          }
-        ]
-      });
-      await globalApp.viewer.launch();
-      await globalApp.start();
-      const object = globalApp.viewer.viewer.scene.getObjectByName('main');
-      object.visible = false;
-    }
-    function dispose() {
-      globalApp.dispose();
-      globalApp = null;
-    }
-    function disolve() {
-      globalApp.viewer.disolveObjectByName('main', { delay: 0.1, duration: 0.5 }).then(() => console.log('pong'));
-    }
-    function resolve() {
-      globalApp.viewer.resolveObjectByName('main', { delay: 0.3, duration: .5 }).then(() => console.log('pong'));
-    }
-  </script>
-  <script defer type="module" src="./main.js" app-callback="start"></script>
-</body>
-
+  <body>
+    <main id="chess-viewer"></main>
+    <button onclick="launch()">Launch</button>
+    <button onclick="dispose()">Dispose</button>
+    <button onclick="disolve()">Disolve</button>
+    <button onclick="resolve()">Resolve</button>
+    <script defer>
+      let globalApp;
+      async function start(app) {
+        globalApp = app;
+      }
+      async function launch() {
+        globalApp.viewer.addTasks({
+          parallelTasks: [
+            {
+              task: async () => {
+                await globalApp.viewer.loadIbl(
+                  "./assets/room_rgbd_irradiance.dds",
+                  "./assets/room_rgbd_radiance.dds"
+                );
+                globalApp.viewer.setIblInViewSpace();
+              },
+            },
+          ],
+        });
+        await globalApp.viewer.launch();
+        await globalApp.start();
+        const object = globalApp.viewer.viewer.scene.getObjectByName("main");
+        object.visible = false;
+      }
+      function dispose() {
+        globalApp.dispose();
+        globalApp = null;
+      }
+      function disolve() {
+        globalApp.viewer
+          .disolveObjectByName("main", { delay: 0.1, duration: 0.5 })
+          .then(() => console.log("disolved"));
+      }
+      function resolve() {
+        globalApp.viewer
+          .resolveObjectByName("main", { delay: 0.3, duration: 0.5 })
+          .then(() => console.log("resolved"));
+      }
+    </script>
+    <script defer type="module" src="./main.js" app-callback="start"></script>
+  </body>
 </html>
