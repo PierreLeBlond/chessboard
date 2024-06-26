@@ -14,17 +14,17 @@
   "author": "PierreLeBlond",
   "license": "ISC",
   "devDependencies": {
-    "@types/three": "^0.149.0",
-    "copy-webpack-plugin": "^11.0.0",
+    "@types/three": "^0.165.0",
+    "copy-webpack-plugin": "^12.0.2",
     "file-loader": "^6.2.0",
-    "three": "^0.150.1",
-    "ts-loader": "^9.4.2",
-    "typescript": "^5.0.2",
-    "webpack": "^5.76.2",
-    "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.13.1"
+    "three": "^0.165.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.2",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
   },
   "dependencies": {
-    "@s0rt/3d-viewer": "^8.2.2"
+    "@s0rt/3d-viewer": "^9.0.0"
   }
 }

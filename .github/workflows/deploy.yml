@@ -1,8 +1,8 @@
-name: Bump
-on: 
+name: Deploy
+on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 jobs:
   build:
     runs-on: ubuntu-22.04
