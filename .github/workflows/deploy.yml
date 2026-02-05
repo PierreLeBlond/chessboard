@@ -14,11 +14,12 @@ jobs:
           cd dist/lib
           mkdir ../package
           npm pack --pack-destination ../package
-      - uses: garygrossgarten/github-action-scp@release
+      - uses: appleboy/scp-action@v0.1.7
         with:
-          local: dist
-          remote: app/chess/${{ github.ref_name }}
-          rmRemote: true
+          source: dist/*
+          strip_components: 1
+          target: app/chess/${{ github.ref_name }}
+          rm: true
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
