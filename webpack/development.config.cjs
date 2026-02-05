@@ -12,13 +12,20 @@ module.exports = {
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+      "Access-Control-Allow-Headers":
+        "X-Requested-With, content-type, Authorization",
     },
     // Set port to make public path work
     port: "8081",
     // Externally reachable
-    host: "0.0.0.0"
+    host: "0.0.0.0",
   },
 
-  publicPath: 'http://localhost:8081/'
+  watch: true,
+  watchOptions: {
+    symlinks: true, // Follow symlinks to watch linked dependencies
+    ignored: /node_modules\/(?!@s0rt\/3d-viewer)/, // Optional: Ignore other node_modules but not your linked package
+  },
+
+  publicPath: "http://localhost:8081/",
 };

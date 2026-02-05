@@ -76,7 +76,7 @@ export default class App {
     }
 
     const board = this.viewer.viewer.scene.getObjectByName(
-      "Chessboard"
+      "Chessboard",
     ) as THREE.Mesh;
 
     const reflector = new Reflector(this.viewer.viewer, this.scene, board, {

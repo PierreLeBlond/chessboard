@@ -16,5 +16,10 @@ const Chess = (await import("/PATHTOLIB/index.js")).default;
 
 # Deploy
 
-`npm version patch|minor|major -m "chore: vX.X.X"`
+change package.json version
+
+`git commit -a -m "chore: v.X.X.X`
+
+`git tag -a vX.X.X -m "vX.X.X"`
+
 `git push --follow-tags`
